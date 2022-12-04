@@ -1,15 +1,14 @@
 class Solution {
-    private boolean result=true;
-    public boolean isBalanced(TreeNode root) {
-        validate(root);
-        return result;
+    int minValue =Integer.MAX_VALUE;
+    public int minDepth(TreeNode root) {
+        return helper(root);
+        
     }
-    public int validate(TreeNode root){
-        if(root==null) return 0;
-        int l=validate(root.left);
-        int r=validate(root.right);
-        if(Math.abs(l-r)>1)
-            result = false;
-        return 1+ Math.max(l,r);
+    protected int helper(TreeNode curr){
+        if(curr==null) return 0;
+        int left =helper(curr.left);
+        int right=helper(curr.right);
+        return (left == 0 ||right == 0) ? left + right + 1:
+                  Math.min(left,right)+1;
     }
 }
